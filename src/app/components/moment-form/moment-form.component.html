@@ -1,12 +1,34 @@
-<form>
+<!-- a diretiva [formGroup] é o gurpo de formulario para o angular mapear os inputs e disparar as  validaçoes -->
+<form (ngSubmit)="submit()" [formGroup]="momentForm" #formDir="ngForm">
   <div class="form-group">
     <label for="title">Titulo:</label>
-    <input type="text" placeholder="Coloque um titulo" required />
+    <input
+      type="text"
+      placeholder="Coloque um titulo"
+      required
+      formControlName="title"
+    />
+    <!-- se o titulo for invalido aparece a div com a mensagem de erro -->
+    <div *ngIf="title.invalid && formDir.submitted" class="validation-error">
+      <p *ngIf="title.errors?.['required']">O título é obrigatório.</p>
+    </div>
   </div>
   <div class="form-group">
     <label for="description">Descrição:</label>
-    <textarea placeholder="O que aconteceu lá?" required></textarea>
+    <textarea
+      placeholder="O que aconteceu lá?"
+      required
+      formControlName="description"
+    ></textarea>
+    <!-- se o textarea for invalido aparece a div com a mensagem de erro -->
+    <div
+      *ngIf="description.invalid && formDir.submitted"
+      class="validation-error"
+    >
+      <p *ngIf="description.errors?.['required']">O descrição é obrigatória.</p>
+    </div>
   </div>
+
   <div class="form-group">
     <label for="image">Coloque a foto que mais marcou:</label>
     <input type="file" />
